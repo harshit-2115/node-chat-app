@@ -5,7 +5,7 @@ const http = require('http');
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
-
+const {generateMessage} = require('./utils/message')
 
 app.use(express.static('public'));
 
@@ -17,24 +17,14 @@ app.get('/',(req,res) => {
 io.on('connection', (socket) => {
 	console.log('New user connected.');
 
-	socket.emit('newMessage', {
-		from: 'Admin',
-		text: 'Welcome to the chat app'
-	})
+	socket.emit('newMessage',generateMessage('Admin','Welcome to the chat app'));
+	socket.broadcast.emit('newMessage', generateMessage('Admin','New User Connected'));
 
-	socket.broadcast.emit('newMessage', {
-		from : 'Admin',
-		text : 'New user connected'
-	})
-
-	socket.on('createMessage',(message) => {
-	console.log('New Message', message);
-
-	io.emit('newMessage',{
-		from : message.from,
-		text : message.text
-	})
-});
+	socket.on('createMessage',(message, callback) => {
+		console.log('New Message', message);
+		io.emit('newMessage',generateMessage(message.from,message.text))
+		// callback('This is from the server.');
+	});
 
 });
 
