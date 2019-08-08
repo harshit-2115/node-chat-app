@@ -16,11 +16,18 @@ app.get('/',(req,res) => {
 
 io.on('connection', (socket) => {
 	console.log('New user connected.');
+
+	socket.emit('newEmail', {
+		from : 'GOD',
+		text : 'You created me'
+	});
 });
 
 io.on('disconnect', (socket) => {
 	console.log('User connected.');
 });
+
+
 
 server.listen(3000,() => {
 	console.log('Listening to port 3000')
