@@ -17,10 +17,15 @@ app.get('/',(req,res) => {
 io.on('connection', (socket) => {
 	console.log('New user connected.');
 
-	socket.emit('newEmail', {
+	socket.emit('newMessage', {
 		from : 'GOD',
 		text : 'You created me'
 	});
+
+	socket.on('createMessage',(message) => {
+	console.log('New Message', message);
+});
+
 });
 
 io.on('disconnect', (socket) => {

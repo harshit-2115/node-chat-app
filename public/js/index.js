@@ -2,12 +2,17 @@ var socket = io();
 
 socket.on('connect',function(){
 	console.log('connected to server');
+
+	socket.emit('createMessage', {
+		from : 'harshit',
+		message : 'Just do it'
+	});
 });
 
 socket.on('disconnect', function(){
 	console.log('disconnected');
 });
 
-socket.on('newEmail',function(email){                // custom event
-	console.log('New Email Arrived.',email)
-})
+socket.on('newMessage', function(message){
+	console.log('New Message', message);
+});
