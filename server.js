@@ -11,7 +11,7 @@ app.use(express.static('public'));
 
 app.get('/',(req,res) => {
 	console.log('At localhost');
-	res.send('index.html');
+	res.send('join.html');
 });	
 
 io.on('connection', (socket) => {
