@@ -18,14 +18,11 @@ socket.on('newMessage', function(message) {
     jQuery('#messages').append(li);
 });
 
-
-
-socket.emit('createMessage', {
-    from: 'GOD',
-    text: 'Hello'
-}, function(res) {
-    console.log(res)
+socket.on('clear',function(){
+    jQuery('[name=message]').val('')
 });
+
+
 
 jQuery('#message-form').on('submit', function(e){
     e.preventDefault()
