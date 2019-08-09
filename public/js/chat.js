@@ -1,15 +1,22 @@
 var socket = io();
 
 
-socket.on('connect', function() {
-    console.log('connected to server');
+socket.on('connect', function(e) {
+    var params = jQuery.deparam(window.location.search)
+    
+    socket.emit('join', params);
+    console.log('connect');
 });
 
 
 socket.on('disconnect', function() {
-    console.log('disconnected');
+    console.log('disconnect');
 });
 
+socket.on('!join', function(){
+    alert('Invalid Entries')
+    window.location.href = '/';
+});
 
 socket.on('newMessage', function(message) {
     
