@@ -24,12 +24,18 @@ io.on('connection', (socket) => {
 		{
 			console.log('False')
 			socket.emit('!join');
+			
 		}
+
+		socket.join(params.room);
+		// socket.leave('')
+		socket.emit('newMessage',generateMessage('Admin','Welcome to the chat app'));
+		socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin',`${params.name} has joined`));
+		
 	});
 
 
-	socket.emit('newMessage',generateMessage('Admin','Welcome to the chat app'));
-	socket.broadcast.emit('newMessage', generateMessage('Admin','New User Connected'));
+	
 
 	socket.on('createMessage',(message, callback) => {
 		io.emit('newMessage',generateMessage(message.from,message.text))
