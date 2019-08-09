@@ -1,6 +1,8 @@
 const express = require('express');
 const socketIO = require('socket.io');
 const http = require('http');
+const port = process.env.PORT || 3000;
+
 
 var app = express();
 var server = http.createServer(app);
@@ -46,6 +48,6 @@ io.on('disconnect', (socket) => {
     console.log('User connected.');
 });
 
-server.listen(3000, () => {
-    console.log('Listening to port 3000')
+server.listen(port, () => {
+    console.log(`Server is on port ${port}`)
 })
